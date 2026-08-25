@@ -12,7 +12,7 @@ Bu proje, kurumsal siber güvenlik standartlarını (NIST, OWASP, Azure Cloud Se
 
 Projenin canlı demosunu, kod mimarisini ve detaylı sunumunu izlemek için aşağıdaki bağlantıya tıklayabilirsiniz:
 
-👉 [YouTube Üzerinden Sunumu İzlemek İçin Tıklayın](https://www.youtube.com/watch?v=Cl1EERGzSfY)
+👉 [YouTube Üzerinden Sunumu İzlemek İçin Tıklayın](https://www.youtube.com/watch?v=CllEERGzSfY)
 
 ---
 
