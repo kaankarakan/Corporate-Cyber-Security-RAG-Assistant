@@ -27,7 +27,7 @@ with st.sidebar:
     
     st.markdown("---")
     st.markdown("**Sistem Durumu:**")
-    st.success("Ollama (Llama 3.2:1B) Aktif")
+    st.success("Ollama (Llama 3.2: 3B) Aktif")
     st.success("HuggingFace Embeddings Aktif")
     st.success("ChromaDB Vektör Tabanı Aktif")
 
@@ -48,22 +48,22 @@ def process_document(file_path, is_pdf=False):
     return vector_db.as_retriever(search_kwargs={"k": 3})
 
 def build_rag_chain(retriever):
-    llm = Ollama(model="llama3.2:1b", temperature=0.0)
+    llm = Ollama(model="llama3.2", temperature=0.0)
     
-    # Katı ve Kural Tabanlı Prompt Şablonu (Anti-Halüsinasyon)
-    template = """Sen kurumsal bir siber güvenlik uzmanısın. Görevin sadece verilen bağlamı (context) analiz etmektir.
+    # Modelin kafasının karışmaması için kurallar İNGİLİZCE, çıktı TÜRKÇE ayarlandı.
+    template = """You are a professional cybersecurity AI assistant.
+Your task is to answer the user's question ONLY based on the provided Context.
 
-KESİN KURALLAR:
-1. YALNIZCA verilen bağlam içindeki bilgileri kullanarak yanıt ver.
-2. Eğer sorulan sorunun cevabı verilen bağlamda açıkça YER ALMIYORSA; yorum yapma, tahmin yürütme ve İngilizce kelimeler kullanma. SADECE VE KELİMESİ KELİMESİNE şu cümleyi yaz:
+RULES:
+1. If the answer can be found in the Context, provide a clear, professional answer in Turkish.
+2. If the Context does not contain the answer to the user's question, DO NOT guess, DO NOT translate, and DO NOT output English. You MUST reply EXACTLY with this Turkish sentence and nothing else:
 Bu bilgi sağlanan dokümanda bulunmamaktadır.
-3. Cevapların kısa, net ve düzgün bir Türkçe ile olmalıdır.
 
-Bağlam:
+Context:
 {context}
 
-Soru: {question}
-Cevap:"""
+Question: {question}
+Answer:"""
 
     prompt = ChatPromptTemplate.from_template(template)
     
