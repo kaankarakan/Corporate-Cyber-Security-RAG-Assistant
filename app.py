@@ -48,17 +48,23 @@ def process_document(file_path, is_pdf=False):
     return vector_db.as_retriever(search_kwargs={"k": 3})
 
 def build_rag_chain(retriever):
-    llm = Ollama(model="llama3.2:1b")
-    # Katı Prompt: Halüsinasyonu engeller
-    template = """Sen uzman bir siber güvenlik asistanısın. Sadece aşağıdaki bağlamı (context) kullanarak cevap ver. 
-    Eğer sorunun cevabı bağlamda yoksa kesinlikle uydurma, 'Bu bilgi sağlanan dokümanda bulunmamaktadır.' de.
-    Kısa, net ve profesyonel bir Türkçe kullan.
+    llm = Ollama(model="llama3.2:1b", temperature=0.0)
     
-    Bağlam:
-    {context}
-    
-    Soru: {question}
-    """
+    # Katı ve Kural Tabanlı Prompt Şablonu (Anti-Halüsinasyon)
+    template = """Sen kurumsal bir siber güvenlik uzmanısın. Görevin sadece verilen bağlamı (context) analiz etmektir.
+
+KESİN KURALLAR:
+1. YALNIZCA verilen bağlam içindeki bilgileri kullanarak yanıt ver.
+2. Eğer sorulan sorunun cevabı verilen bağlamda açıkça YER ALMIYORSA; yorum yapma, tahmin yürütme ve İngilizce kelimeler kullanma. SADECE VE KELİMESİ KELİMESİNE şu cümleyi yaz:
+Bu bilgi sağlanan dokümanda bulunmamaktadır.
+3. Cevapların kısa, net ve düzgün bir Türkçe ile olmalıdır.
+
+Bağlam:
+{context}
+
+Soru: {question}
+Cevap:"""
+
     prompt = ChatPromptTemplate.from_template(template)
     
     def format_docs(docs):
