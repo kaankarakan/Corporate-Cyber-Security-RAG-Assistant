@@ -1,3 +1,12 @@
+---
+
+## 🎬 Proje Sunum Videosu
+Projenin canlı demosunu, kod mimarisini ve detaylı sunumunu izlemek için aşağıdaki bağlantıya tıklayabilirsiniz:
+
+👉 [YouTube Üzerinden Sunumu İzlemek İçin Tıklayın](https://www.youtube.com/watch?v=CllEERGzSfY)
+
+---
+
 (Bu proje, Microsoft AI Innovators yaz stajı programı kapsamında, sıfırdan modern Üretken Yapay Zeka (GenAI) mimarileri ve RAG sistemleri öğrenilerek geliştirilmiştir. Geliştirme sürecinde sektörel standartlara uyum sağlamak amacıyla AI asistanlarından mimari destek alınmıştır.)
 
 # 🛡️ Kurumsal Siber Güvenlik RAG Asistanı
